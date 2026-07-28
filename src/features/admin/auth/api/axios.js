@@ -13,10 +13,11 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     const skipUrls = [
-      "/auth/login",
+      "/admin/auth/admin-login",
       
-      "/auth/refresh-token",
+      "/admin/auth/refresh-token",
     ];
+    console.log(originalRequest.url);
 
     const shouldSkip = skipUrls.some((url) =>
       originalRequest?.url?.includes(url)

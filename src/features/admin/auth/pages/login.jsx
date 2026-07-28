@@ -30,6 +30,7 @@ export default function Login() {
         password: data.password
       })
       console.log(response)
+      
       toast.success(response.message)
       navigate("admin/")
 
