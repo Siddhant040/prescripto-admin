@@ -1,10 +1,8 @@
-import React from "react";
-import { Bell, ChevronUp, LayoutGrid, Search, User, Settings, LogOut } from "lucide-react";
-import { useRef,useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../features/admin/auth/hooks/useAuth";
+import { Bell, ChevronUp, LayoutGrid, LogOut, Search, Settings, User } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { useMemo } from "react";
+import { useAuth } from "../../features/admin/auth/hooks/useAuth";
 
 const getInitials = (name) => {
   if (!name) return "AM";
@@ -30,8 +28,7 @@ const getGreeting = () => {
 
 const Header = ({ onMenuClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, handleLogout, isLoggingOut,loginLoading } = useAuth();
-  console.log(user);
+  const { user, handleLogout, isLoggingOut } = useAuth();
 
   // UI-only fallback data (no auth or navigation)
   const profileName = user?.name ?? "Alex";
@@ -64,11 +61,11 @@ const Header = ({ onMenuClick }) => {
   const onLogout = async () => {
     try {
       const response = await handleLogout();
-      console.log(response.message);
-      toast.success(response.message);
+      toast.success(response?.message || "Logged out successfully");
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(
+        error?.response?.data?.message || error?.message || "Logout failed"
+      );
     }
   };
   if(!user){
@@ -76,7 +73,7 @@ const Header = ({ onMenuClick }) => {
   }
 
   return (
-    <header className="sticky top-3 z-30 min-h-[72px] rounded-[24px] border border-emerald-100/80 bg-white/95 px-6 py-3 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-xl">
+    <header className="sticky top-3 z-30 min-h-18 rounded-[24px] border border-emerald-100/80 bg-white/95 px-6 py-3 shadow-[0_12px_30px_rgba(15,23,42,0.05)] backdrop-blur-xl">
       <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
           <button
@@ -97,7 +94,7 @@ const Header = ({ onMenuClick }) => {
         </div>
 
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-          <label className="flex min-w-0 flex-1 items-center gap-3 rounded-full border border-emerald-100 bg-slate-50/70 px-4 py-2.5 lg:w-[340px]">
+          <label className="flex min-w-0 flex-1 items-center gap-3 rounded-full border border-emerald-100 bg-slate-50/70 px-4 py-2.5 lg:w-85">
             <Search className="h-4 w-4 text-slate-400" />
             <input
               type="text"

@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../features/admin/auth/hooks/useAuth";
 
 const ProtectedRoutes = ({ children }) => {
@@ -13,7 +13,7 @@ const ProtectedRoutes = ({ children }) => {
     return <Navigate to="/" replace />;
 }
 if(user?.activeRole !== "admin") {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/" replace />;
 }
 
 

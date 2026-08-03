@@ -1,29 +1,5 @@
 import { AlertCircle, ChevronLeft, ChevronRight, Search } from "lucide-react";
-
-export const formatDateTime = (value) => {
-  const date = new Date(value);
-
-  if (!value || Number.isNaN(date.getTime())) return "Not available";
-
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
-};
-
-export const getInitials = (name = "") => {
-  const initials = name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("");
-
-  return initials || "NA";
-};
+import { getInitials } from "../utils/adminUtils";
 
 export const PageHeader = ({ eyebrow, title, description, action }) => (
   <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

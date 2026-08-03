@@ -1,13 +1,11 @@
 import {
-  CalendarDays,
-  LayoutGrid,
-  MessageSquareText,
-  Settings,
-  ShieldCheck,
-  Stethoscope,
-  User,
-  UsersRound,
-  X,
+    CalendarDays,
+    LayoutGrid,
+    MessageSquareText,
+    ShieldCheck,
+    Stethoscope,
+    UsersRound,
+    X
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -16,8 +14,7 @@ const navItems = [
   { label: "Doctors", to: "/admin/doctors", icon: Stethoscope },
   { label: "Appointments", to: "/admin/appointments", icon: CalendarDays },
   { label: "Reviews", to: "/admin/reviews", icon: MessageSquareText },
-  { label: "My Profile", to: "/admin/profile", icon: User },
-  { label: "Settings", to: "/admin/settings", icon: Settings },
+  
 ];
 
 function AdminSidebar({ isMobileOpen = false, onClose }) {
@@ -54,7 +51,7 @@ function AdminSidebar({ isMobileOpen = false, onClose }) {
 const SidebarContent = ({ onNavigate }) => (
   <>
     <div className="flex items-center gap-3 px-2">
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,_#0f766e,_#34d399)] text-white shadow-[0_10px_22px_rgba(15,118,110,0.2)]">
+      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#0f766e,#34d399)] text-white shadow-[0_10px_22px_rgba(15,118,110,0.2)]">
         <ShieldCheck className="h-5 w-5" />
       </div>
       <div>
@@ -80,7 +77,7 @@ const SidebarContent = ({ onNavigate }) => (
             className={({ isActive }) =>
               `group flex h-12 items-center gap-3 rounded-2xl px-3 text-[15px] font-medium transition ${
                 isActive
-                  ? "bg-[linear-gradient(135deg,_#0f766e,_#14b8a6)] text-white shadow-[0_12px_24px_rgba(15,118,110,0.2)]"
+                  ? "bg-[linear-gradient(135deg,#0f766e,#14b8a6)] text-white shadow-[0_12px_24px_rgba(15,118,110,0.2)]"
                   : "text-slate-600 hover:bg-emerald-50 hover:text-slate-950"
               }`
             }

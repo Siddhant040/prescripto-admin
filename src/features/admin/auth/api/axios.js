@@ -13,9 +13,9 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     const skipUrls = [
-      "/admin/auth/admin-login",
+      "auth2/admin/admin-login",
       
-      "/admin/auth/refresh-token",
+      "auth2/admin/refresh-token",
     ];
     console.log(originalRequest.url);
 

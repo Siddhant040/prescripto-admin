@@ -1,22 +1,20 @@
-import { useState } from "react";
-import { Eye, EyeOff, Lock, Mail, ShieldCheck, Stethoscope, Loader2 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff, Loader2, Lock, Mail, ShieldCheck, Stethoscope } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { adminLoginSchema } from "../schema/authSchema"
-import { useAuth } from "../hooks/useAuth";
-import { toast } from "sonner"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuth } from "../hooks/useAuth";
+import { adminLoginSchema } from "../schema/authSchema";
 export default function Login() {
   const navigate = useNavigate()
   const { loginLoading, handleLogin } = useAuth()
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit
-    , formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     resolver: zodResolver(adminLoginSchema),
     defaultValues: {
       email: "",
@@ -29,17 +27,12 @@ export default function Login() {
         email: data.email,
         password: data.password
       })
-      console.log(response)
-      
-      toast.success(response.message)
-      navigate("admin/")
-
-
-
+      toast.success(response?.message || "Signed in successfully")
+      navigate("/admin")
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data.message)
-
+      toast.error(
+        error?.response?.data?.message || error?.message || "Login failed"
+      )
     }
   };
   const onInvalid = (formErrors) => {
@@ -50,7 +43,7 @@ export default function Login() {
 
   return (
     <div className="fixed inset-0 bg-slate-50 text-slate-950">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.18),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.12),_transparent_28%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.18),transparent_30%),radial-gradient(circle_at_top_right,rgba(14,165,233,0.12),transparent_28%)]" />
       <div className="absolute inset-y-0 right-0 hidden w-full overflow-hidden lg:block">
         <div className="absolute right-10 top-1/4 h-72 w-72 rounded-full bg-emerald-300/10 blur-3xl" />
         <div className="absolute right-0 bottom-24 h-60 w-60 rounded-full bg-teal-400/10 blur-3xl" />
@@ -58,7 +51,7 @@ export default function Login() {
 
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="grid h-screen w-screen grid-cols-1 overflow-hidden bg-transparent lg:grid-cols-[0.55fr_0.45fr]">
-          <div className="relative hidden overflow-hidden bg-[linear-gradient(160deg,_#0f172a_0%,_#134e4a_58%,_#34d399_100%)] p-10 text-white lg:flex lg:flex-col lg:justify-between lg:p-12">
+          <div className="relative hidden overflow-hidden bg-[linear-gradient(160deg,#0f172a_0%,#134e4a_58%,#34d399_100%)] p-10 text-white lg:flex lg:flex-col lg:justify-between lg:p-12">
             <div className="absolute left-8 top-8 h-28 w-28 rounded-full bg-white/10 blur-3xl" />
             <div className="absolute bottom-10 right-10 h-36 w-36 rounded-full bg-teal-300/10 blur-3xl" />
 
@@ -113,7 +106,7 @@ export default function Login() {
           </div>
 
           <div className="flex h-full items-center justify-center overflow-hidden p-6 md:p-8">
-            <Card className="w-full max-w-[440px] rounded-[2rem] border border-white/70 bg-white/80 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+            <Card className="w-full max-w-110 rounded-[2rem] border border-white/70 bg-white/80 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl">
               <CardContent className="p-6 md:p-8">
                 <div className="space-y-5">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[1.75rem] bg-emerald-50 text-emerald-700 shadow-sm">
@@ -175,7 +168,7 @@ export default function Login() {
                     <Button
                       type="submit"
                       disabled={loginLoading}
-                      className="inline-flex h-14 w-full items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 px-6 text-sm font-semibold text-white shadow-[0_18px_50px_rgba(16,185,129,0.18)] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_22px_60px_rgba(16,185,129,0.22)] active:translate-y-0 active:shadow-[0_14px_40px_rgba(16,185,129,0.16)]"
+                      className="inline-flex h-14 w-full items-center justify-center rounded-full bg-linear-to-r from-emerald-600 to-teal-500 px-6 text-sm font-semibold text-white shadow-[0_18px_50px_rgba(16,185,129,0.18)] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_22px_60px_rgba(16,185,129,0.22)] active:translate-y-0 active:shadow-[0_14px_40px_rgba(16,185,129,0.16)]"
                     >
                       {loginLoading ? (
                         <>
@@ -191,7 +184,7 @@ export default function Login() {
 
                   <div className="rounded-2xl border border-emerald-100/70 bg-emerald-50/70 p-4 text-sm text-slate-600">
                     <div className="flex items-start gap-3">
-                      <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-600" />
+                      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
                       <p>Protected access with modern authentication standards for healthcare teams.</p>
                     </div>
                   </div>

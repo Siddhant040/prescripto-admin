@@ -1,18 +1,18 @@
 import { useMemo, useState } from "react";
 import {
-  AvatarName,
-  EmptyState,
-  ErrorState,
-  formatDateTime,
-  PageHeader,
-  Pagination,
-  Panel,
-  SearchBox,
-  SelectFilter,
-  StatusBadge,
-  TableSkeleton,
+    AvatarName,
+    EmptyState,
+    ErrorState,
+    PageHeader,
+    Pagination,
+    Panel,
+    SearchBox,
+    SelectFilter,
+    StatusBadge,
+    TableSkeleton,
 } from "../components/adminUi";
 import { useAdminAppointments } from "../hooks/useAdminQueries";
+import { formatDateTime } from "../utils/adminUtils";
 
 const LIMIT = 10;
 
@@ -83,7 +83,7 @@ function AppointmentsPage() {
         {isError ? (
           <ErrorState message={error?.response?.data?.message} />
         ) : (
-          <Panel className="flex h-[620px] flex-col overflow-hidden">
+          <Panel className="flex h-155 flex-col overflow-hidden">
             <div className="flex flex-col gap-2 border-b border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-slate-950">Appointment list</h2>
@@ -102,7 +102,7 @@ function AppointmentsPage() {
                   <EmptyState title="No appointments found" />
                 </div>
               ) : (
-                <table className="min-w-[980px] w-full text-left text-sm">
+                <table className="min-w-245 w-full text-left text-sm">
                   <thead className="sticky top-0 z-10 bg-slate-50 text-xs uppercase tracking-[0.16em] text-slate-400">
                     <tr>
                       <th className="px-5 py-4 font-semibold">Patient</th>
